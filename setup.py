@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1", 
     author="Anthony R. Osborne", 
     author_email="anthony.osborne019@gmail.com", 
-    packages=["therm_inv_tools"], 
+    packages=["tools"], 
     description="A package containing all my tools for thermal inversions", 
     long_description=description, 
     long_description_content_type="text/markdown", 

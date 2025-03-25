@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: test-package
+Version: 0.0.1
+Summary: A package containing all my tools for thermal inversions
+Home-page: https://github.com/Anthony904175/therm_inv_tools.git
+Author: Anthony R. Osborne
+Author-email: anthony.osborne019@gmail.com
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+#need to fille this out later
