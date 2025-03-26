@@ -22,6 +22,20 @@ def v_atomic(Z, x):
     return -Z/(np.abs(x)+.5)
 
 ## Occupation functions
+### Spin String function
+def occ_string(N):
+    """
+    Function to write an up/down spin string
+    """
+    occ_string = ''
+    for i in range(N):
+        i+=1
+        if i%2==0:
+            occ_string += 'd'
+        else:
+            occ_string += 'u'
+    return occ_string
+
 ### Fermi Occupation function
 def fermi_occs(Eis,mu,tau):
     '''
