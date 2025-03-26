@@ -11,21 +11,25 @@ import math
 from matplotlib import cm
 import scipy
 from decimal import Decimal
-# Code from V. Martinetto
+# Code from V. Martinetto Modified for documentation purposes and ease of use by Anthony R. Osborne
+## External potential function
+def v_atomic(Z, x):
+    """
+    INPUT: 
+        Z: Integer, atomic number
+        x: Array, grid to evaluate on
+    """
+
 ## Occupation functions
 ### Fermi Occupation function
 def fermi_occs(Eis,mu,tau):
     '''
     INPUT:
-        tau: Scalar
-            the tau value to find the temprature dependent mu for
-        mus: scalar
-            a guess at a value below the chemical potential for tau
-        Eis: Scalar
-            Some kind of energy 
+        tau: Scalar the tau value to find the temprature dependent mu for
+        mus: scalar a guess at a value below the chemical potential for tau
+        Eis: Scalar Some kind of energy 
     OUTPUT
-        F_occs: Scalar
-            The Fermi Occupation for mu, tau, Eis
+        F_occs: Scalar The Fermi Occupation for mu, tau, Eis
     '''
     F_occs = 1/(1+np.exp((Eis-mu)/tau))
     return F_occs
@@ -34,19 +38,12 @@ def fermi_occs(Eis,mu,tau):
 def boltz_occs(Eis,mu,T,N):
     '''
     INPUT:
-        Eis: np.array, size=(nstates,N)
-            The eigenvalues of the zero temprature interacting wavefunctions of the system. It is an nstates x N array.
-            Enregy will increase moving down the matrix and number of particlea from left to right. position (0,0)
-            will be the ernergy for the ground state of the one particle system.
-        Mu: Scalar, float
-            The temprature dependent chemical potnetial of the N-particle system.
-        T: Scalar, float
-            The temprature of the N-particle system in K.
-        N: Integer
-            The number of particles in the final thermal density.
+        Eis: np.array, size=(nstates,N) The eigenvalues of the zero temprature interacting wavefunctions of the system. It is an nstates x N array.Enregy will increase moving down the matrix and number of particlea from left to right. position (0,0) will be the ernergy for the ground state of the one particle system.
+        Mu: Scalar, float The temprature dependent chemical potnetial of the N-particle system.
+        T: Scalar, float The temprature of the N-particle system in K.
+        N: Integer The number of particles in the final thermal density.
     OUTPUT:
-        w: np.array, size=(nstates,N)
-            The boltzamn weights that result in the thermal density at chemical potnetial, mu, and temprature, T.
+        w: np.array, size=(nstates,N) The boltzamn weights that result in the thermal density at chemical potnetial, mu, and temprature, T.
     '''
     
     kb = 3.166811563e-6 # Ha K^-1
@@ -81,17 +78,12 @@ def secant_method(x0,x1,func,criterion=1e-6,max_iter=100):
     takes the first two guesses at the correct root and a defined
     function then run the secant method to find the root.
     INPUT:
-        x0: Scalar
-            First guess at root value
-        x1: scalar
-            Second guess at root value
-        func: Scalar
-            Function to find root of
+        x0: Scalar First guess at root value
+        x1: scalar Second guess at root value
+        func: Scalar Function to find root of
     OUTPUT
-        x1: Scalar
-            Root value
-        fx1: Scalar
-            function evaluated at root value            
+        x1: Scalar Root value
+        fx1: Scalar function evaluated at root value            
     '''
     
     i = 0
@@ -131,8 +123,7 @@ def fermi_dens_function(fs,vecs,x):
         x: ndarray
             
     OUTPUT
-        Dens: ndarray
-            The density for the system
+        Dens: ndarray The density for the system
     '''
     dens = np.zeros(len(x))
     for i,f in enumerate(fs):
@@ -144,19 +135,13 @@ def fermi_particle_number_function(mu,tau,vals,vecs,x):
     '''
     Description: Determine the Unshifted particle number
     INPUT:
-        mu: Scalar (float)
-            chemical potential
-        tau: Scalar (float)
-            Electronic temperature
-        vecs: ndarray
-            Eigenvectors
-        vals: ndarray
-            Eigenvalues 
-        x: ndarray
-            Grid
+        mu: Scalar (float) chemical potential
+        tau: Scalar (float) Electronic temperature
+        vecs: ndarray Eigenvectors
+        vals: ndarray Eigenvalues 
+        x: ndarray Grid
     OUTPUT
-        Ne: Scalar (float)
-            The unshifted particle number
+        Ne: Scalar (float) The unshifted particle number
     '''
     fs = fermi_occs(vals,mu,tau)
     dens = np.zeros(len(x))
@@ -173,19 +158,13 @@ def fermi_particle_number_shifter(tau,vals,vecs,x,target_Ne):
 
     Description: Determines the Shifted particle number
     INPUT:
-        tau: Scalar (float)
-            Electronic temperature
-        vecs: ndarray
-            Eigenvectors
-        vals: ndarray
-            Eigenvalues 
-        x: ndarray
-            Grid
-        target_Ne: Scalar (int)
-            The desired particle number
+        tau: Scalar (float) Electronic temperature
+        vecs: ndarray Eigenvectors
+        vals: ndarray Eigenvalues 
+        x: ndarray Grid
+        target_Ne: Scalar (int) The desired particle number
     OUTPUT
-        particle_number_Shift: Scalar (float)
-            The Shifted particle number
+        particle_number_Shift: Scalar (float) The Shifted particle number
     '''
 
     def fermi_particle_number_Shift(mu):
