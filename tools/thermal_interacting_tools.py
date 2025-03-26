@@ -19,6 +19,7 @@ def v_atomic(Z, x):
         Z: Integer, atomic number
         x: Array, grid to evaluate on
     """
+    return -Z/(np.abs(x)+.5)
 
 ## Occupation functions
 ### Fermi Occupation function
