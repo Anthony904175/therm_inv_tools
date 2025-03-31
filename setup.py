@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
   
 setuptools.setup( 
     name="therm_inv_tools", 
-    version="0.1.1", 
+    version="0.2.0", 
     author="Anthony R. Osborne", 
     author_email="anthony.osborne019@gmail.com", 
     packages=["tools"], 

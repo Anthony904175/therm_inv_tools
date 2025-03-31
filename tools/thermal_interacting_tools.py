@@ -20,6 +20,13 @@ def v_atomic(Z, x):
         x: Array, grid to evaluate on
     """
     return -Z/(np.abs(x)+.5)
+def v_diatomic(Z, x, d):
+    """
+    INPUT: 
+        Z: Integer, atomic number
+        x: Array, grid to evaluate on
+    """
+    return -Z/(abs(x + 0.5*d) + 1.0) -Z/(abs(x - 0.5*d) + 1.0)
 
 ## Occupation functions
 ### Spin String function
