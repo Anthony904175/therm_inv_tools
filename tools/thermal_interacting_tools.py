@@ -11,7 +11,10 @@ import math
 from matplotlib import cm
 import scipy
 from decimal import Decimal
-# Code from V. Martinetto Modified for documentation purposes and ease of use by Anthony R. Osborne
+from matplotlib import animation, rc
+# Code from V. Martinetto and Anthony R. Osborne 
+# Modified for documentation and packaging purposes by Anthony R. Osborne
+
 ## External potential function
 def v_atomic(Z, x):
     """
@@ -168,7 +171,7 @@ def fermi_particle_number_function(mu,tau,vals,vecs,x):
     fs = fermi_occs(vals,mu,tau)
     dens = np.zeros(len(x))
     for i,f in enumerate(fs):
-        dens += 2*f*vecs[:,j]**2
+        dens += 2*f*vecs[:,i]**2
     Ne = np.trapz(dens,x)
     return Ne
 
@@ -194,7 +197,7 @@ def fermi_particle_number_shifter(tau,vals,vecs,x,target_Ne):
         fs = fermi_occs(vals,mu,tau)
         dens = np.zeros(len(x))
         for i,f in enumerate(fs):
-            dens += 2*f*vecs[:,j]**2
+            dens += 2*f*vecs[:,i]**2
         Ne = np.trapz(dens,x)
         
         return Ne - target_Ne
