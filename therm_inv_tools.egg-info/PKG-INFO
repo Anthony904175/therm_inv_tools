@@ -1,10 +1,10 @@
 Metadata-Version: 2.4
 Name: therm_inv_tools
-Version: 0.2.3
+Version: 1.0.3
 Summary: A package containing all my tools for thermal inversions
 Home-page: https://github.com/Anthony904175/therm_inv_tools.git
 Author: Anthony R. Osborne
-Author-email: anthony.osborne019@gmail.com
+Author-email: anthony.r.osborne019@pm.me
 License: MIT
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown

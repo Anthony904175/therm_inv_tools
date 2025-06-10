@@ -1,11 +1,11 @@
 import numpy as np
-from scipy.integrate import simps
+from scipy.integrate import simpson as simps
 # from decimal import Decimal
 # Based on code from V. Martinetto 
 # Written, and packaged by Anthony R. Osborne
 
 
-def atomic_potentials(Z: int = 1, x: np.ndarray = None, d: float = 0.0, potential_type: int = 1):
+def atomic_potentials(Z:int, x:np.ndarray, d:float, potential_type:int):
     """
     INPUT: 
         Z: int, atomic number
@@ -43,7 +43,7 @@ def occ_string(N):
             occ_string += 'u'
     return occ_string
 
-def occupier(Ei: np.ndarray = None, mu: float= 0, tau: float=0, N: int=1, occupation_type: int = 0):
+def occupier(Ei: np.ndarray, mu:float, tau:float, N:int, occupation_type:int):
     """
     INPUT: 
         Ei: ndarray, eignevalues
@@ -79,9 +79,10 @@ def occupier(Ei: np.ndarray = None, mu: float= 0, tau: float=0, N: int=1, occupa
     else: 
         raise NotImplementedError("Only Boltzman or Fermi-like occupations are currently supported")
     return occupation
-## Root finding tools
 
-def secant_method(function, guess1:float = 0, guess2:float = 0, criterion: float = 1e-6, max_iter: float = 100, print_opt:float = 0):
+
+## Root finding tools
+def secant_method(function, guess1:float, guess2:float, max_iter: float , print_opt:float, criterion: float = 1e-6 ):
     """
     INPUT: 
         function : function, function of which to find the roots 
@@ -122,12 +123,12 @@ def secant_method(function, guess1:float = 0, guess2:float = 0, criterion: float
         if iteration > max_iter:
             break
     return x2, function(x2)
+
+
 ## Particle number tools
 
-### Fermi weight functions
-
 #### Function to calculate density
-def density_weighter(init_dens: np.ndarray = None, dens_type: int=0, Ei: np.ndarray = None, mu: float= 0, tau: float=0, N: int=1):
+def density_weighter(init_dens:np.ndarray, dens_type:int, Ei:np.ndarray, mu:float, tau:float, N:int):
     """
     INPUT: 
         init_dens: ndarray, density to be weighted
@@ -146,7 +147,7 @@ def density_weighter(init_dens: np.ndarray = None, dens_type: int=0, Ei: np.ndar
         raise NotImplementedError("Only densities weighted by Fermi-like or Boltzman occupations are currently supported ")
     return density
 
-def particle_number(denisty:np.ndarray = None, x:np.ndarray= None):
+def particle_number(denisty:np.ndarray, x:np.ndarray):
     """
     INPUT: 
         densty : ndarray, density for integration
@@ -160,7 +161,7 @@ def particle_number(denisty:np.ndarray = None, x:np.ndarray= None):
     return particle_number
 
 ### Function to calculate number of particles for a given mu and tau (shifted)
-def particle_number_shifter_function(init_dens: np.ndarray = None, dens_type: int=0, Ei: np.ndarray = None, tau: float=0, N: int=1, x:np.ndarray= None, target_Ne: int = 0):
+def particle_number_shifter_function(init_dens:np.ndarray, dens_type:int, Ei:np.ndarray, tau:float, N:int, x:np.ndarray, target_Ne: int ):
     """
     INPUT: 
         densty : ndarray, density for integration
@@ -178,7 +179,7 @@ def particle_number_shifter_function(init_dens: np.ndarray = None, dens_type: in
 ## Chemical potential calculation functions
 
 ### Search function to search over a range of \tau that returns \mu for each \tau such that a number of particles is conserved
-def tau_search(taus:np.ndarray = None, guess1:float = 0, guess2:float = 0, vals:np.ndarray = None, x:np.ndarray = None, N:int = 0, occupation_type: int = 0, criterion:float = 1e-10, target_N:float = 2):
+def tau_search(taus:np.ndarray, guess1:float, guess2:float, vals:np.ndarray, x:np.ndarray, N:int , occupation_type: int, criterion:float = 1e-10, target_N:float = 2):
     """
     INPUT: 
         taus : ndarray, array of electronic temperatures
