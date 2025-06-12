@@ -71,7 +71,7 @@ def occupier(Ei: np.ndarray, mu:float, tau:float, N:int, occupation_type:int):
         partition_function = 0 
         for i in range(nstates): 
             for j in range(N):
-                w[j,i] = np.exp(-beta*(Ei[i]-(mu*j)))
+                w[j-1,i] = np.exp(-beta*(Ei[i]-(mu*j)))
                 partition_function += w[j,i]
         #renormalize boltzman weights
         w = w/partition_function
