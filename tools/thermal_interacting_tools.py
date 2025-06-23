@@ -65,14 +65,18 @@ def occupier(Ei: np.ndarray, mu:float, tau:float, N:int, occupation_type:int):
     elif occupation_type == 2: 
         # do Boltzman occupations
         kb = 3.166811563e-6 # Boltzman constant in Hartrees
-        beta = 1/kb*tau # beta 
+        beta = 1/(kb*tau) # beta 
         nstates = len(Ei) # number of states 
-        w = np.empty((nstates,N))
+        # print(Ei.shape)
         partition_function = 0 
-        for i in range(nstates): 
-            for j in range(N):
-                w[j-1,i] = np.exp(-beta*(Ei[i]-(mu*j)))
-                partition_function += w[j,i]
+        w = np.empty((nstates,N))
+        # for i in range(N):
+        for j in range(nstates):
+            w[j] = np.exp(-beta*(Ei[j]-(mu*N)))
+            # print((Ei[j]-mu*N))
+            # print(-beta*(Ei[j]-mu*N))
+            # print(w[j])
+            partition_function += w[j]
         #renormalize boltzman weights
         w = w/partition_function
         occupation = w
@@ -142,7 +146,10 @@ def density_weighter(init_dens:np.ndarray, dens_type:int, Ei:np.ndarray, mu:floa
     if dens_type == 1: 
         density = occupier(Ei, mu, tau, N, 1)*init_dens
     elif dens_type == 2: 
-        density = occupier(Ei, mu, tau, N, 2)*init_dens
+        weights = occupier(Ei, mu, tau, N, 2)
+        # print(weights)
+        for i in range(len(Ei)):
+            density = weights[i] *init_dens[i,:]
     else: 
         raise NotImplementedError("Only densities weighted by Fermi-like or Boltzman occupations are currently supported ")
     return density
